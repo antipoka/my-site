@@ -1,109 +1,147 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Творческая Студия</title>
+    <title>ANTIPOKA'S GAMES</title>
     <style>
-        /* Настройка заднего фона сайта */
+        /* Настройка твоего заднего фона fon.png */
         body {
             background-image: url('fon.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-color: #121212; /* Запасной цвет, если фон долго грузится */
-            color: #ffffff;
+            background-color: #121212; /* Запасной цвет */
+            color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
         }
-
-        /* Контейнер для выравнивания контента */
+        
+        /* Главный контейнер с полупрозрачной подложкой, чтобы текст отлично читался на фоне */
         .container {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            background: rgba(0, 0, 0, 0.6); /* Полупрозрачная подложка, чтобы текст хорошо читался на любом фоне */
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            margin-top: 40px;
-            margin-bottom: 40px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            background: rgba(18, 18, 18, 0.75);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
 
-        h1 {
-            font-size: 2.8em;
-            margin-bottom: 10px;
+        h1 { 
+            color: #ccff00; 
+            font-size: 3em; 
+            margin-bottom: 10px; 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
-
-        p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #ddd;
-            margin-bottom: 40px;
+        h2 { 
+            color: #ccff00; 
+            margin-top: 40px; 
+            border-bottom: 2px solid #333; 
+            padding-bottom: 10px; 
+        }
+        h3 {
+            font-size: 1.6em;
+            margin-top: 0;
+        }
+        p { line-height: 1.6; color: #b0b0b0; font-size: 1.1em; }
+        
+        /* Стильные карточки для блоков */
+        .card {
+            background: rgba(30, 30, 30, 0.85);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #333;
+            text-align: center;
         }
 
-        /* Стили для твоих кастомных картинок-кнопок */
-        .custom-btn {
-            display: inline-block;
-            margin: 15px;
-            transition: transform 0.2s, filter 0.2s;
-            cursor: pointer;
-        }
-
-        /* Эффект при наведении курсора (кнопка слегка увеличивается и начинает светиться) */
-        .custom-btn:hover {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
-        }
-
-        /* Настройка размера картинок внутри кнопок */
-        .custom-btn img {
-            display: block;
-            max-width: 220px; /* Можешь изменить размер кнопок (больше/меньше), меняя это число */
-            height: auto;
-        }
-
-        .flex-buttons {
+        /* Обертка для кнопок, чтобы они красиво стояли в ряд */
+        .button-group {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            margin-top: 20px;
+        }
+        
+        /* Стили для твоих картинок-кнопок */
+        .custom-btn {
+            display: inline-block;
+            margin: 10px 15px;
+            transition: transform 0.2s, filter 0.2s;
+            cursor: pointer;
+        }
+        
+        /* Эффект при наведении (кнопка слегка увеличивается и светится) */
+        .custom-btn:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 12px rgba(204, 255, 0, 0.5));
+        }
+        
+        /* Размер картинок внутри кнопок (можно менять, если будут слишком большие/маленькие) */
+        .custom-btn img {
+            display: block;
+            max-width: 200px;
+            height: auto;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Добро пожаловать! 👋</h1>
-        <p>Привет! Я создаю игры, рисую комиксы и делюсь своим творчеством. Ниже ты найдешь ссылки на мои главные проекты, сможешь скачать файлы или связаться со мной.</p>
+        <!-- Шапка сайта -->
+        <h1>WELCOME</h1>
+        <p>I'M CREATING GAMES AND COMICS</p>
 
-        <!-- Блок со всеми кастомными кнопками-картинками -->
-        <div class="flex-buttons">
+        <!-- Блок ИГРЫ -->
+        <h2>🎮 My main game</h2>
+        <div class="card">
+            <h3>ANTIWORLD</h3>
+            <p>It’s a roguelike featuring 10 modes—such as story mode, arena, boss rush, and procedural generation—and much more.</p>
+            
+            <div class="button-group">
+                <!-- Кастомная кнопка Game Jolt -->
+                <a href="https://gamejolt.com/games/antiworld3doverthrow/1094593" target="_blank" class="custom-btn">
+                    <img src="gamejoltpng.png" alt="Play on Game Jolt">
+                </a>
+                <!-- Кастомная кнопка Скачать напрямую (замени ссылку, если нужно) -->
+                <a href="ССЫЛКА_НА_СКАЧИВАНИЕ_ИГРЫ" target="_blank" class="custom-btn">
+                    <img src="download.png" alt="Download Game">
+                </a>
+            </div>
+        </div>
 
-            <!-- Кнопка Game Jolt -->
-            <!-- Замени ССЫЛКА_НА_GAMEJOLT на реальный адрес своей страницы -->
-            <a href="ССЫЛКА_НА_GAMEJOLT" target="_blank" class="custom-btn">
-                <img src="gamejoltpng.png" alt="Game Jolt">
-            </a>
+        <!-- Блок КОМИКСЫ -->
+        <h2>📚 My comics</h2>
+        <div class="card">
+            <h3>ANTIPOKA'S DELIRIUM</h3>
+            <p>my reflections in comic form.</p>
+            
+            <div class="button-group">
+                <!-- Кастомная кнопка Скачать/Читать для комикса -->
+                <a href="ССЫЛКА_НА_ТВОЙ_КОМИКС" target="_blank" class="custom-btn">
+                    <img src="download.png" alt="Read Comic">
+                </a>
+            </div>
+        </div>
 
-            <!-- Кнопка Скачать (Игра или Комикс) -->
-            <!-- Замени ССЫЛКА_НА_СКАЧИВАНИЕ на прямую ссылку (например, на Google/Яндекс Диск) -->
-            <a href="ССЫЛКА_НА_СКАЧИВАНИЕ" target="_blank" class="custom-btn">
-                <img src="download.png" alt="Скачать">
-            </a>
-
-            <!-- Кнопка Телеграм -->
-            <!-- Замени ССЫЛКА_НА_ТЕЛЕГРАМ на ссылку на свой канал или профиль -->
-            <a href="ССЫЛКА_НА_ТЕЛЕГРАМ" target="_blank" class="custom-btn">
+        <!-- Блок О СЕБЕ -->
+        <h2>About Me and Contact Information.</h2>
+        <p>As a young indie developer, I have been creating games for nearly a year, and during that time I have released numerous projects—both public and private.</p>
+        
+        <div class="button-group">
+            <!-- Кастомная кнопка Telegram -->
+            <a href="https://t.me/+5tdyo3_NtHgzODMy" target="_blank" class="custom-btn">
                 <img src="telegram.png" alt="Telegram">
             </a>
-
+            <!-- Кастомная кнопка Game Jolt для профиля -->
+            <a href="https://gamejolt.com/@Antipokasgames" target="_blank" class="custom-btn">
+                <img src="gamejoltpng.png" alt="Game Jolt Profile">
+            </a>
         </div>
     </div>
 
 </body>
 </html>
-
