@@ -67,7 +67,7 @@
             height: auto;
         }
 
-        /* Сетка для игр и комиксов (3 колонки по твоей схеме) */
+        /* Сетка для игр и комиксов (3 колонки) */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -86,6 +86,7 @@
         .game-btn {
             display: block;
             transition: transform 0.2s, filter 0.2s;
+            cursor: pointer;
         }
         .game-btn:hover {
             transform: scale(1.05);
@@ -97,6 +98,72 @@
             max-width: 280px;
             height: auto;
             margin: 0 auto;
+        }
+
+        /* СТИЛИ ДЛЯ ИНТЕРАКТИВНОЙ ЧИТАЛКИ КОМИКСА */
+        .comic-modal {
+            display: none; /* Изначально скрыто */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Отображаемая страница комикса */
+        .comic-page-img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        /* Кнопки управления читалкой */
+        .comic-controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .comic-nav-btn {
+            background-color: #ccff00;
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .comic-nav-btn:hover {
+            background-color: #b3e600;
+            transform: scale(1.05);
+        }
+
+        .comic-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .comic-close-btn:hover { color: #ccff00; }
+
+        .page-counter {
+            color: #fff;
+            font-family: sans-serif;
+            font-size: 18px;
         }
 
         /* Адаптивность для мобильных устройств */
@@ -124,39 +191,33 @@
             </a>
         </div>
 
-        <!-- 3. По центру КАРТИНКА Игры и Комиксы -->
+        <!-- 3. По充ентру КАРТИНКА Игры и Комиксы -->
         <img src="gamesandcomics.png" alt="Игры и Комиксы" class="games-comics-img">
 
         <!-- 4. Сетка из 3-х колонок -->
         <div class="grid-container">
             
-            <!-- ЛЕВАЯ КОЛОНКА: Никсо 1, Никсо 2, Антиворлд 2 -->
+            <!-- ЛЕВАЯ КОЛОНКА -->
             <div class="grid-column">
-                <!-- Игра 1: NIXO: the horror game -->
                 <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
                     <img src="nixo1.png" alt="NIXO 1">
                 </a>
-                <!-- Игра 2: Five Night's At NIXO -->
                 <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
                     <img src="nixo2.png" alt="Five Nights At NIXO">
                 </a>
-                <!-- Игра 3: ANTIWORLD 2D: CLASSIC -->
                 <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
                     <img src="antiworld2.png" alt="ANTIWORLD 2D">
                 </a>
             </div>
 
-            <!-- СРЕДНЯЯ КОЛОНКА: Антиворлд 3, Ротен Молтен, Антипокас Крейзи Хаус -->
+            <!-- СРЕДНЯЯ КОЛОНКА -->
             <div class="grid-column">
-                <!-- Игра 4: Antiworld 3D: Overthrow -->
                 <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
                     <img src="antiworld3.png" alt="Antiworld 3D">
                 </a>
-                <!-- Игра 5: Roten Molten -->
                 <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
                     <img src="rotenmolten.png" alt="Roten Molten">
                 </a>
-                <!-- Игра 6: ANTIPOKA'S CRAZY HOUSE -->
                 <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
                     <img src="antipokascrazyhouse.png" alt="Antipoka's Crazy House">
                 </a>
@@ -164,10 +225,10 @@
 
             <!-- ПРАВАЯ КОЛОНКА: Комикс и под ним кнопка Телеграма -->
             <div class="grid-column">
-                <!-- Твой Комикс -->
-                <a href="ССЫЛКА_НА_КОМИКС" target="_blank" class="game-btn">
+                <!-- Кнопка Комикса (открывает читалку) -->
+                <div onclick="openComic()" class="game-btn">
                     <img src="comics.png" alt="Комиксы">
-                </a>
+                </div>
                 <!-- Вторая кнопка Телеграма под комиксом -->
                 <a href="https://t.me" target="_blank" class="game-btn">
                     <img src="telegram.png" alt="Telegram Link">
@@ -177,6 +238,68 @@
         </div>
 
     </div>
+
+    <!-- ОКНО ИНТЕРАКТИВНОЙ ЧИТАЛКИ -->
+    <div id="comicModal" class="comic-modal">
+        <span class="comic-close-btn" onclick="closeComic()">&times;</span>
+        <img id="comicPage" src="antipokasdeliriumvol1.png" alt="Страница комикса" class="comic-page-img">
+        
+        <div class="comic-controls">
+            <button class="comic-nav-btn" onclick="prevPage()">Назад</button>
+            <span id="pageCounter" class="page-counter">Обложка</span>
+            <button class="comic-nav-btn" onclick="nextPage()">Вперед</button>
+        </div>
+    </div>
+
+    <!-- СКРИПТ УПРАВЛЕНИЯ ЛИСТАЛКОЙ -->
+    <script>
+        let currentPage = 0; // 0 — это обложка
+        const totalPages = 4; // 4 страницы комикса
+
+        function openComic() {
+            currentPage = 0;
+            updateModal();
+            document.getElementById("comicModal").style.display = "flex";
+        }
+
+        function closeComic() {
+            document.getElementById("comicModal").style.display = "none";
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateModal();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updateModal();
+            }
+        }
+
+        function updateModal() {
+            const pageImg = document.getElementById("comicPage");
+            const counter = document.getElementById("pageCounter");
+            
+            if (currentPage === 0) {
+                pageImg.src = "antipokasdeliriumvol1.png";
+                counter.innerText = "Обложка";
+            } else {
+                pageImg.src = "vol1page" + currentPage + ".png";
+                counter.innerText = "Страница " + currentPage + " / " + totalPages;
+            }
+        }
+
+        // Закрытие окна по кнопке Esc
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeComic();
+            }
+        });
+    </script>
 
 </body>
 </html>
