@@ -5,147 +5,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Моя Творческая Студия</title>
     <style>
-        /* Настройка твоего заднего фона fon.png */
+        /* Задний фон сайта fon.png */
         body {
             background-image: url('fon.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-color: #121212; /* Запасной цвет */
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
             margin: 0;
             padding: 0;
             text-align: center;
         }
         
-        /* Главный контейнер с полупрозрачной подложкой, чтобы текст отлично читался на фоне */
+        /* Главный контейнер сайта */
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 40px 20px;
-            background: rgba(18, 18, 18, 0.75);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
 
-        h1 { 
-            color: #ccff00; 
-            font-size: 3em; 
-            margin-bottom: 10px; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-        h2 { 
-            color: #ccff00; 
-            margin-top: 40px; 
-            border-bottom: 2px solid #333; 
-            padding-bottom: 10px; 
-        }
-        h3 {
-            font-size: 1.6em;
-            margin-top: 0;
-            color: #ffffff;
-        }
-        p { line-height: 1.6; color: #b0b0b0; font-size: 1.1em; }
-        
-        /* Новые карточки-окошки, использующие твою картинку button.png в качестве рамки */
-        .card {
-            background-image: url('button.png'); /* Твоя PNG рамка */
-            background-size: 100% 100%;          /* Растягивает картинку ровно по форме блока */
-            background-repeat: no-repeat;
-            background-position: center;
-            background-color: transparent;       /* Убирает старый серый цвет */
-            padding: 45px 35px;                  /* Большие внутренние отступы, чтобы текст был ровно внутри рамки */
-            margin: 30px 0;
-            border: none;                        /* Полностью удаляет старую серую рамку */
-            text-align: center;
-            box-sizing: border-box;
+        /* Картинка-заголовок Welcome */
+        .welcome-img {
+            display: block;
+            max-width: 450px;
+            width: 100%;
+            height: auto;
+            margin: 20px auto;
         }
 
-        /* Обертка для кнопок, чтобы они красиво стояли в ряд */
-        .button-group {
+        /* Картинка-заголовок Игры и Комиксы */
+        .games-comics-img {
+            display: block;
+            max-width: 550px;
+            width: 100%;
+            height: auto;
+            margin: 40px auto 20px auto;
+        }
+
+        /* Группы кнопок соцсетей в ряд */
+        .social-row {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            margin-top: 25px;
+            gap: 20px;
+            margin: 20px 0 40px 0;
         }
         
-        /* Стили для твоих картинок-кнопок */
+        /* Картинки-кнопки (соцсети) */
         .custom-btn {
             display: inline-block;
-            margin: 10px 15px;
             transition: transform 0.2s, filter 0.2s;
             cursor: pointer;
         }
-        
-        /* Эффект при наведении (кнопка слегка увеличивается и светится) */
         .custom-btn:hover {
             transform: scale(1.08);
             filter: drop-shadow(0 0 12px rgba(204, 255, 0, 0.5));
         }
-        
-        /* Размер картинок внутри кнопок */
         .custom-btn img {
             display: block;
-            max-width: 200px;
+            max-width: 180px;
             height: auto;
+        }
+
+        /* Сетка для игр и комиксов (3 колонки по твоей схеме) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Колонки для кнопок */
+        .grid-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Игровые кнопки-картинки */
+        .game-btn {
+            display: block;
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .game-btn:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+        }
+        .game-btn img {
+            display: block;
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Шапка сайта -->
-        <h1>WELCOME</h1>
-        <p>I'M CREATING GAMES AND COMICS</p>
-
-        <!-- Блок ИГРЫ -->
-        <h2>🎮 My main game</h2>
-        <div class="card">
-            <h3>ANTIWORLD</h3>
-            <p>It’s a roguelike featuring 10 modes—such as story mode, arena, boss rush, and procedural generation—and much more.</p>
-            
-            <div class="button-group">
-                <!-- Кастомная кнопка Game Jolt -->
-                <a href="https://gamejolt.com" target="_blank" class="custom-btn">
-                    <img src="gamejoltpng.png" alt="Play on Game Jolt">
-                </a>
-                <!-- Кастомная кнопка Скачать напрямую -->
-                <a href="ССЫЛКА_НА_СКАЧИВАНИЕ_ИГРЫ" target="_blank" class="custom-btn">
-                    <img src="download.png" alt="Download Game">
-                </a>
-            </div>
-        </div>
-
-        <!-- Блок КОМИКСЫ -->
-        <h2>📚 Мои Комиксы</h2>
-        <div class="card">
-            <h3>ANTIPOKA'S DELIRIUM</h3>
-            <p>my reflections in comic form.</p>
-            
-            <div class="button-group">
-                <!-- Кастомная кнопка Скачать/Читать для комикса -->
-                <a href="ССЫЛКА_НА_ТВОЙ_КОМИКС" target="_blank" class="custom-btn">
-                    <img src="download.png" alt="Read Comic">
-                </a>
-            </div>
-        </div>
-
-        <!-- Блок О СЕБЕ -->
-        <h2>About Me and Contact Information.</h2>
-        <p>As a young indie developer, I have been creating games for nearly a year, and during that time I have released numerous projects—both public and private.</p>
         
-        <div class="button-group">
-            <!-- Кастомная кнопка Telegram -->
+        <!-- 1. Наверху КАРТИНКА WELCOME -->
+        <img src="welcome.png" alt="WELCOME" class="welcome-img">
+
+        <!-- 2. Ниже соцсети в ряд -->
+        <div class="social-row">
             <a href="https://t.me" target="_blank" class="custom-btn">
                 <img src="telegram.png" alt="Telegram">
             </a>
-            <!-- Кастомная кнопка Game Jolt для профиля -->
             <a href="https://gamejolt.com" target="_blank" class="custom-btn">
-                <img src="gamejoltpng.png" alt="Game Jolt Profile">
+                <img src="gamejoltpng.png" alt="Gamejolt">
             </a>
         </div>
+
+        <!-- 3. По центру КАРТИНКА Игры и Комиксы -->
+        <img src="gamesandcomics.png" alt="Игры и Комиксы" class="games-comics-img">
+
+        <!-- 4. Сетка из 3-х колонок по твоей схеме -->
+        <div class="grid-container">
+            
+            <!-- ЛЕВАЯ КОЛОНКА: Никсо 1, Никсо 2, Антиворлд 2 -->
+            <div class="grid-column">
+                <!-- Игра 1: NIXO: the horror game -->
+                <a href="https://gamejolt.com/games/nixo/1077643" target="_blank" class="game-btn">
+                    <img src="nixo1.png" alt="NIXO 1">
+                </a>
+                <!-- Игра 2: Five Night's At NIXO -->
+                <a href="https://gamejolt.com/games/fivenightatnixo/1080065" target="_blank" class="game-btn">
+                    <img src="nixo2.png" alt="Five Nights At NIXO">
+                </a>
+                <!-- Игра 3: ANTIWORLD 2D: CLASSIC -->
+                <a href="https://gamejolt.com/games/antiworld2dclassic/1077211" target="_blank" class="game-btn">
+                    <img src="antiworld2.png" alt="ANTIWORLD 2D">
+                </a>
+            </div>
+
+            <!-- СРЕДНЯЯ КОЛОНКА: Антиворлд 3, Ротен Молтен, Антипокас Крейзи Хаус -->
+            <div class="grid-column">
+                <!-- Игра 4: Antiworld 3D: Overthrow -->
+                <a href="https://gamejolt.com/games/antiworld3doverthrow/1094593" target="_blank" class="game-btn">
+                    <img src="antiworld3.png" alt="Antiworld 3D">
+                </a>
+                <!-- Игра 5: Roten Molten -->
+                <a href="https://gamejolt.com/games/rotenmolten/1092455" target="_blank" class="game-btn">
+                    <img src="roten molten.png" alt="Roten Molten">
+                </a>
+                <!-- Игра 6: ANTIPOKA'S CRAZY HOUSE -->
+                <a href="https://gamejolt.com/games/antipokascrazyhouse/1077205" target="_blank" class="game-btn">
+                    <img src="antipokascrazyhouse.png" alt="Antipoka's Crazy House">
+                </a>
+            </div>
+
+            <!-- ПРАВАЯ КОЛОНКА: Твой Комикс -->
+            <div class="grid-column">
+                <!-- Замени ССЫЛКА_НА_КОМИКС, когда зальешь его на Гугл Диск -->
+                <a href="ССЫЛКА_НА_КОМИКС" target="_blank" class="game-btn">
+                    <img src="comics.png" alt="Комиксы">
+                </a>
+            </div>
+
+        </div>
+
     </div>
 
 </body>
