@@ -102,50 +102,72 @@
 
         /* СТИЛИ ДЛЯ ИНТЕРАКТИВНОЙ ЧИТАЛКИ КОМИКСА */
         .comic-modal {
-            display: none; /* Изначально скрыто */
+            display: none;
             position: fixed;
             z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(0, 0, 0, 0.97);
             justify-content: center;
             align-items: center;
             flex-direction: column;
         }
 
-        /* Отображаемая страница комикса */
-        .comic-page-img {
-            max-width: 90%;
-            max-height: 80vh;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
-        }
-
-        /* Кнопки управления читалкой */
-        .comic-controls {
-            margin-top: 20px;
+        /* Контейнер для скролла при зуме */
+        .comic-wrapper {
+            max-width: 95%;
+            max-height: 82vh;
+            overflow: auto;
             display: flex;
-            gap: 20px;
+            justify-content: center;
             align-items: center;
+            border-radius: 6px;
         }
 
-        .comic-nav-btn {
-            background-color: #ccff00;
-            color: #000;
-            border: none;
-            padding: 10px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
+        /* Крупная страница комикса */
+        .comic-page-img {
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            transition: transform 0.2s ease;
+            cursor: zoom-in;
+            display: block;
+        }
+
+        /* Приближенная страница */
+        .comic-page-img.zoomed {
+            max-height: none;
+            max-width: none;
+            transform: scale(1.4);
+            cursor: zoom-out;
+            margin: 40px;
+        }
+
+        /* Панель со стрелками */
+        .comic-controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            z-index: 1010;
+        }
+
+        /* Настройка кнопок-картинок BACK и NEXT */
+        .comic-img-btn {
+            display: inline-block;
             cursor: pointer;
-            transition: 0.2s;
+            transition: transform 0.2s;
         }
-
-        .comic-nav-btn:hover {
-            background-color: #b3e600;
-            transform: scale(1.05);
+        .comic-img-btn:hover {
+            transform: scale(1.1);
+        }
+        .comic-img-btn img {
+            display: block;
+            max-width: 120px;
+            height: auto;
         }
 
         .comic-close-btn {
@@ -153,10 +175,11 @@
             top: 20px;
             right: 30px;
             color: #fff;
-            font-size: 40px;
+            font-size: 45px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
+            z-index: 1020;
         }
         .comic-close-btn:hover { color: #ccff00; }
 
@@ -164,18 +187,22 @@
             color: #fff;
             font-family: sans-serif;
             font-size: 18px;
+            user-select: none;
+            font-weight: bold;
         }
 
-        /* Адаптивность для мобильных устройств */
+        /* Адаптивность для мобилок */
         @media (max-width: 768px) {
             .grid-container {
                 grid-template-columns: 1fr;
+            }
+            .comic-page-img.zoomed {
+                transform: scale(2.0);
             }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         
         <!-- 1. Наверху КАРТИНКА WELCOME -->
@@ -191,7 +218,7 @@
             </a>
         </div>
 
-        <!-- 3. По充ентру КАРТИНКА Игры и Комиксы -->
+        <!-- 3. По центру КАРТИНКА Игры и Комиксы -->
         <img src="gamesandcomics.png" alt="Игры и Комиксы" class="games-comics-img">
 
         <!-- 4. Сетка из 3-х колонок -->
@@ -223,13 +250,11 @@
                 </a>
             </div>
 
-            <!-- ПРАВАЯ КОЛОНКА: Комикс и под ним кнопка Телеграма -->
+            <!-- ПРАВАЯ КОЛОНКА -->
             <div class="grid-column">
-                <!-- Кнопка Комикса (открывает читалку) -->
                 <div onclick="openComic()" class="game-btn">
                     <img src="comics.png" alt="Комиксы">
                 </div>
-                <!-- Вторая кнопка Телеграма под комиксом -->
                 <a href="https://t.me" target="_blank" class="game-btn">
                     <img src="telegram.png" alt="Telegram Link">
                 </a>
@@ -242,33 +267,47 @@
     <!-- ОКНО ИНТЕРАКТИВНОЙ ЧИТАЛКИ -->
     <div id="comicModal" class="comic-modal">
         <span class="comic-close-btn" onclick="closeComic()">&times;</span>
-        <img id="comicPage" src="antipokasdeliriumvol1.png" alt="Страница комикса" class="comic-page-img">
+        
+        <div class="comic-wrapper">
+            <img id="comicPage" src="antipokasdeliriumvol1.png" alt="Страница комикса" class="comic-page-img" onclick="toggleZoom()">
+        </div>
         
         <div class="comic-controls">
-            <button class="comic-nav-btn" onclick="prevPage()">Назад</button>
+            <!-- Стрелка НАЗАД (BACK.png) -->
+            <div class="comic-img-btn" onclick="prevPage()">
+                <img src="BACK.png" alt="Назад">
+            </div>
+            
             <span id="pageCounter" class="page-counter">Обложка</span>
-            <button class="comic-nav-btn" onclick="nextPage()">Вперед</button>
+            
+            <!-- Стрелка ВПЕРЕД (NEXT.png) -->
+            <div class="comic-img-btn" onclick="nextPage()">
+                <img src="NEXT.png" alt="Вперед">
+            </div>
         </div>
     </div>
 
-    <!-- СКРИПТ УПРАВЛЕНИЯ ЛИСТАЛКОЙ -->
+    <!-- СКРИПТ УПРАВЛЕНИЯ ЛИСТАЛКОЙ И ЗУМОМ -->
     <script>
-        let currentPage = 0; // 0 — это обложка
-        const totalPages = 4; // 4 страницы комикса
+        let currentPage = 0;
+        const totalPages = 4;
 
         function openComic() {
             currentPage = 0;
+            resetZoom();
             updateModal();
             document.getElementById("comicModal").style.display = "flex";
         }
 
         function closeComic() {
+            resetZoom();
             document.getElementById("comicModal").style.display = "none";
         }
 
         function nextPage() {
             if (currentPage < totalPages) {
                 currentPage++;
+                resetZoom();
                 updateModal();
             }
         }
@@ -276,6 +315,7 @@
         function prevPage() {
             if (currentPage > 0) {
                 currentPage--;
+                resetZoom();
                 updateModal();
             }
         }
@@ -293,7 +333,16 @@
             }
         }
 
-        // Закрытие окна по кнопке Esc
+        function toggleZoom() {
+            const pageImg = document.getElementById("comicPage");
+            pageImg.classList.toggle("zoomed");
+        }
+
+        function resetZoom() {
+            const pageImg = document.getElementById("comicPage");
+            pageImg.classList.remove("zoomed");
+        }
+
         window.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeComic();
