@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Творческая Студия</title>
+    <title>ANTIPOKA'S DELIRIUM</title>
     <style>
         /* Задний фон сайта fon.png */
         body {
@@ -17,41 +17,23 @@
             text-align: center;
         }
         
-        /* Главный контейнер сайта */
+        /* Главный контейнер */
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 30px 20px;
         }
 
-        /* Картинка-заголовок Welcome */
-        .welcome-img {
-            display: block;
-            max-width: 450px;
-            width: 100%;
-            height: auto;
-            margin: 20px auto;
-        }
-
-        /* Картинка-заголовок Игры и Комиксы */
-        .games-comics-img {
-            display: block;
-            max-width: 550px;
-            width: 100%;
-            height: auto;
-            margin: 40px auto 20px auto;
-        }
-
-        /* Группы кнопок соцсетей в ряд */
-        .social-row {
+        /* 1. Верхний ряд соцсетей */
+        .top-social-row {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
-            margin: 20px 0 40px 0;
+            margin-top: 10px;
+            margin-bottom: 30px;
         }
         
-        /* Картинки-кнопки (соцсети сверху) */
         .custom-btn {
             display: inline-block;
             transition: transform 0.2s, filter 0.2s;
@@ -63,44 +45,47 @@
         }
         .custom-btn img {
             display: block;
-            max-width: 180px;
+            max-width: 150px;
             height: auto;
         }
 
-        /* Сетка для игр и комиксов (3 колонки) */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        /* Колонки для кнопок */
-        .grid-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* Игровые и кастомные кнопки-картинки в сетке */
-        .game-btn {
+        /* 2. Заголовок Welcome */
+        .welcome-img {
             display: block;
+            max-width: 450px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 20px auto;
+        }
+
+        /* 3. Заголовок Игры и Комиксы */
+        .games-comics-img {
+            display: block;
+            max-width: 550px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 30px auto;
+        }
+
+        /* 4. Главная кнопка комикса */
+        .main-comic-btn {
+            display: inline-block;
+            margin: 10px auto 40px auto;
             transition: transform 0.2s, filter 0.2s;
             cursor: pointer;
         }
-        .game-btn:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+        .main-comic-btn:hover {
+            transform: scale(1.06);
+            filter: drop-shadow(0 0 20px rgba(204, 255, 0, 0.6));
         }
-        .game-btn img {
+        .main-comic-btn img {
             display: block;
+            max-width: 380px;
             width: 100%;
-            max-width: 280px;
             height: auto;
-            margin: 0 auto;
         }
 
-        /* СТИЛИ ДЛЯ ИНТЕРАКТИВНОЙ ЧИТАЛКИ КОМИКСА */
+        /* СТИЛИ ИНТЕРАКТИВНОЙ ЧИТАЛКИ */
         .comic-modal {
             display: none;
             position: fixed;
@@ -114,8 +99,6 @@
             align-items: center;
             flex-direction: column;
         }
-
-        /* Контейнер для скролла при зуме */
         .comic-wrapper {
             max-width: 95%;
             max-height: 82vh;
@@ -125,8 +108,6 @@
             align-items: center;
             border-radius: 6px;
         }
-
-        /* Крупная страница комикса */
         .comic-page-img {
             max-height: 80vh;
             width: auto;
@@ -136,8 +117,6 @@
             cursor: zoom-in;
             display: block;
         }
-
-        /* Приближенная страница */
         .comic-page-img.zoomed {
             max-height: none;
             max-width: none;
@@ -145,8 +124,6 @@
             cursor: zoom-out;
             margin: 40px;
         }
-
-        /* Панель со стрелками */
         .comic-controls {
             margin-top: 15px;
             display: flex;
@@ -154,22 +131,17 @@
             align-items: center;
             z-index: 1010;
         }
-
-        /* Настройка кнопок-картинок BACK и NEXT */
         .comic-img-btn {
             display: inline-block;
             cursor: pointer;
             transition: transform 0.2s;
         }
-        .comic-img-btn:hover {
-            transform: scale(1.1);
-        }
+        .comic-img-btn:hover { transform: scale(1.1); }
         .comic-img-btn img {
             display: block;
-            max-width: 120px;
+            max-width: 110px;
             height: auto;
         }
-
         .comic-close-btn {
             position: absolute;
             top: 20px;
@@ -182,7 +154,6 @@
             z-index: 1020;
         }
         .comic-close-btn:hover { color: #ccff00; }
-
         .page-counter {
             color: #fff;
             font-family: sans-serif;
@@ -190,26 +161,14 @@
             user-select: none;
             font-weight: bold;
         }
-
-        /* Адаптивность для мобилок */
-        @media (max-width: 768px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-            .comic-page-img.zoomed {
-                transform: scale(2.0);
-            }
-        }
     </style>
 </head>
 <body>
+
     <div class="container">
         
-        <!-- 1. Наверху КАРТИНКА WELCOME -->
-        <img src="welcome.png" alt="WELCOME" class="welcome-img">
-
-        <!-- 2. Ниже соцсети в ряд -->
-        <div class="social-row">
+        <!-- 1. Соцсети на самом верху в ряд -->
+        <div class="top-social-row">
             <a href="https://t.me" target="_blank" class="custom-btn">
                 <img src="telegram.png" alt="Telegram">
             </a>
@@ -218,48 +177,15 @@
             </a>
         </div>
 
-        <!-- 3. По центру КАРТИНКА Игры и Комиксы -->
+        <!-- 2. Ниже картинка WELCOME -->
+        <img src="welcome.png" alt="WELCOME" class="welcome-img">
+
+        <!-- 3. Ниже картинка Игры и Комиксы -->
         <img src="gamesandcomics.png" alt="Игры и Комиксы" class="games-comics-img">
 
-        <!-- 4. Сетка из 3-х колонок -->
-        <div class="grid-container">
-            
-            <!-- ЛЕВАЯ КОЛОНКА -->
-            <div class="grid-column">
-                <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
-                    <img src="nixo1.png" alt="NIXO 1">
-                </a>
-                <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
-                    <img src="nixo2.png" alt="Five Nights At NIXO">
-                </a>
-                <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
-                    <img src="antiworld2.png" alt="ANTIWORLD 2D">
-                </a>
-            </div>
-
-            <!-- СРЕДНЯЯ КОЛОНКА -->
-            <div class="grid-column">
-                <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
-                    <img src="antiworld3.png" alt="Antiworld 3D">
-                </a>
-                <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
-                    <img src="rotenmolten.png" alt="Roten Molten">
-                </a>
-                <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="game-btn">
-                    <img src="antipokascrazyhouse.png" alt="Antipoka's Crazy House">
-                </a>
-            </div>
-
-            <!-- ПРАВАЯ КОЛОНКА -->
-            <div class="grid-column">
-                <div onclick="openComic()" class="game-btn">
-                    <img src="comics.png" alt="Комиксы">
-                </div>
-                <a href="https://t.me" target="_blank" class="game-btn">
-                    <img src="telegram.png" alt="Telegram Link">
-                </a>
-            </div>
-
+        <!-- 4. Центральная кнопка комикса -->
+        <div onclick="openComic()" class="main-comic-btn">
+            <img src="comics.png" alt="Читать Комикс">
         </div>
 
     </div>
@@ -267,19 +193,15 @@
     <!-- ОКНО ИНТЕРАКТИВНОЙ ЧИТАЛКИ -->
     <div id="comicModal" class="comic-modal">
         <span class="comic-close-btn" onclick="closeComic()">&times;</span>
-        
         <div class="comic-wrapper">
             <img id="comicPage" src="antipokasdeliriumvol1.png" alt="Страница комикса" class="comic-page-img" onclick="toggleZoom()">
         </div>
-        
         <div class="comic-controls">
             <!-- Стрелка НАЗАД (BACK.png) -->
             <div class="comic-img-btn" onclick="prevPage()">
                 <img src="BACK.png" alt="Назад">
             </div>
-            
-            <span id="pageCounter" class="page-counter">Обложка</span>
-            
+            <span id="pageCounter" class="page-counter">Обложка Ч.1</span>
             <!-- Стрелка ВПЕРЕД (NEXT.png) -->
             <div class="comic-img-btn" onclick="nextPage()">
                 <img src="NEXT.png" alt="Вперед">
@@ -287,66 +209,59 @@
         </div>
     </div>
 
-    <!-- СКРИПТ УПРАВЛЕНИЯ ЛИСТАЛКОЙ И ЗУМОМ -->
+    <!-- СКРИПТ УПРАВЛЕНИЯ ЛИСТАЛКОЙ -->
     <script>
-        let currentPage = 0;
-        const totalPages = 4;
+        let currentIndex = 0;
+        
+        // Массив всех твоих страниц по порядку
+        const comicPages = [
+            { src: "antipokasdeliriumvol1.png", label: "Обложка Ч.1" },
+            { src: "vol1page1.png", label: "Часть 1 — Стр. 1" },
+            { src: "vol1page2.png", label: "Часть 1 — Стр. 2" },
+            { src: "vol1page3.png", label: "Часть 1 — Стр. 3" },
+            { src: "vol1page4.png", label: "Часть 1 — Стр. 4" },
+            { src: "antipokasdeliriumvol1part2.png", label: "Обложка Ч.2" },
+            { src: "vol1part2page1.png", label: "Часть 2 — Стр. 1" },
+            { src: "vol1part2page2.png", label: "Часть 2 — Стр. 2" },
+            { src: "vol1part2page3.png", label: "Часть 2 — Стр. 3" }
+        ];
 
         function openComic() {
-            currentPage = 0;
+            currentIndex = 0;
             resetZoom();
             updateModal();
             document.getElementById("comicModal").style.display = "flex";
         }
-
         function closeComic() {
             resetZoom();
             document.getElementById("comicModal").style.display = "none";
         }
-
         function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
+            if (currentIndex < comicPages.length - 1) {
+                currentIndex++;
                 resetZoom();
                 updateModal();
             }
         }
-
         function prevPage() {
-            if (currentPage > 0) {
-                currentPage--;
+            if (currentIndex > 0) {
+                currentIndex--;
                 resetZoom();
                 updateModal();
             }
         }
-
         function updateModal() {
-            const pageImg = document.getElementById("comicPage");
-            const counter = document.getElementById("pageCounter");
-            
-            if (currentPage === 0) {
-                pageImg.src = "antipokasdeliriumvol1.png";
-                counter.innerText = "Обложка";
-            } else {
-                pageImg.src = "vol1page" + currentPage + ".png";
-                counter.innerText = "Страница " + currentPage + " / " + totalPages;
-            }
+            document.getElementById("comicPage").src = comicPages[currentIndex].src;
+            document.getElementById("pageCounter").innerText = comicPages[currentIndex].label;
         }
-
         function toggleZoom() {
-            const pageImg = document.getElementById("comicPage");
-            pageImg.classList.toggle("zoomed");
+            document.getElementById("comicPage").classList.toggle("zoomed");
         }
-
         function resetZoom() {
-            const pageImg = document.getElementById("comicPage");
-            pageImg.classList.remove("zoomed");
+            document.getElementById("comicPage").classList.remove("zoomed");
         }
-
         window.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                closeComic();
-            }
+            if (event.key === 'Escape') closeComic();
         });
     </script>
 
