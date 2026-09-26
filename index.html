@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANTIPOKA'S GAMES</title>
+    <title>Моя Творческая Студия</title>
     <style>
         /* Настройка твоего заднего фона fon.png */
         body {
@@ -44,17 +44,22 @@
         h3 {
             font-size: 1.6em;
             margin-top: 0;
+            color: #ffffff;
         }
         p { line-height: 1.6; color: #b0b0b0; font-size: 1.1em; }
         
-        /* Стильные карточки для блоков */
+        /* Новые карточки-окошки, использующие твою картинку button.png в качестве рамки */
         .card {
-            background: rgba(30, 30, 30, 0.85);
-            padding: 25px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid #333;
+            background-image: url('button.png'); /* Твоя PNG рамка */
+            background-size: 100% 100%;          /* Растягивает картинку ровно по форме блока */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;       /* Убирает старый серый цвет */
+            padding: 45px 35px;                  /* Большие внутренние отступы, чтобы текст был ровно внутри рамки */
+            margin: 30px 0;
+            border: none;                        /* Полностью удаляет старую серую рамку */
             text-align: center;
+            box-sizing: border-box;
         }
 
         /* Обертка для кнопок, чтобы они красиво стояли в ряд */
@@ -63,7 +68,7 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         /* Стили для твоих картинок-кнопок */
@@ -80,7 +85,7 @@
             filter: drop-shadow(0 0 12px rgba(204, 255, 0, 0.5));
         }
         
-        /* Размер картинок внутри кнопок (можно менять, если будут слишком большие/маленькие) */
+        /* Размер картинок внутри кнопок */
         .custom-btn img {
             display: block;
             max-width: 200px;
@@ -103,10 +108,10 @@
             
             <div class="button-group">
                 <!-- Кастомная кнопка Game Jolt -->
-                <a href="https://gamejolt.com/games/antiworld3doverthrow/1094593" target="_blank" class="custom-btn">
+                <a href="https://gamejolt.com" target="_blank" class="custom-btn">
                     <img src="gamejoltpng.png" alt="Play on Game Jolt">
                 </a>
-                <!-- Кастомная кнопка Скачать напрямую (замени ссылку, если нужно) -->
+                <!-- Кастомная кнопка Скачать напрямую -->
                 <a href="ССЫЛКА_НА_СКАЧИВАНИЕ_ИГРЫ" target="_blank" class="custom-btn">
                     <img src="download.png" alt="Download Game">
                 </a>
@@ -114,7 +119,7 @@
         </div>
 
         <!-- Блок КОМИКСЫ -->
-        <h2>📚 My comics</h2>
+        <h2>📚 Мои Комиксы</h2>
         <div class="card">
             <h3>ANTIPOKA'S DELIRIUM</h3>
             <p>my reflections in comic form.</p>
@@ -133,11 +138,11 @@
         
         <div class="button-group">
             <!-- Кастомная кнопка Telegram -->
-            <a href="https://t.me/+5tdyo3_NtHgzODMy" target="_blank" class="custom-btn">
+            <a href="https://t.me" target="_blank" class="custom-btn">
                 <img src="telegram.png" alt="Telegram">
             </a>
             <!-- Кастомная кнопка Game Jolt для профиля -->
-            <a href="https://gamejolt.com/@Antipokasgames" target="_blank" class="custom-btn">
+            <a href="https://gamejolt.com" target="_blank" class="custom-btn">
                 <img src="gamejoltpng.png" alt="Game Jolt Profile">
             </a>
         </div>
