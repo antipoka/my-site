@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +26,7 @@
             padding: 30px 20px;
         }
 
-        /* 1. Верхний ряд соцсетей */
+        /* Upper social media row */
         .top-social-row {
             display: flex;
             justify-content: center;
@@ -51,7 +51,7 @@
             height: auto;
         }
 
-        /* 2. Заголовок Welcome */
+        /* Заголовок Welcome */
         .welcome-img {
             display: block;
             max-width: 450px;
@@ -60,7 +60,7 @@
             margin: 0 auto 20px auto;
         }
 
-        /* 3. Заголовок Игры и Комиксы */
+        /* Заголовок Игры и Комиксы */
         .games-comics-img {
             display: block;
             max-width: 550px;
@@ -69,7 +69,7 @@
             margin: 0 auto 40px auto;
         }
 
-        /* 4. Сетка из 3-х колонок для комиксов */
+        /* Сетка из 3-х колонок для комиксов */
         .comics-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -101,21 +101,26 @@
             border-radius: 6px;
         }
 
-        /* 5. Нижний блок: Описание игры + Арт (в 2 колонки) */
+        /* Нижний блок: Описание игры + Арт с фоном button.png и шрифтом Comic Sans */
         .game-section {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 40px;
             margin: 40px auto;
-            padding: 30px;
-            background: rgba(18, 18, 18, 0.85);
-            border-radius: 12px;
-            border: 1px solid #333;
+            padding: 45px 35px;
+            background-image: url('button.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+            border: none;
             text-align: left;
+            box-sizing: border-box;
+            font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", sans-serif;
         }
 
-        /* Левая колонка с текстом и кнопкой скачать */
+        /* Левая колонка с красным текстом и кнопкой скачать */
         .game-info-col {
             flex: 1;
             display: flex;
@@ -125,16 +130,19 @@
         }
 
         .game-section h2 {
-            color: #ccff00;
+            color: #ff0000; /* Ярко-красный заголовок */
             margin: 0;
             font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         .game-section p {
-            color: #b0b0b0;
+            color: #ff3333; /* Красный текст описания */
             line-height: 1.6;
             font-size: 1.1em;
             margin: 0;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
         /* Правая колонка с картинкой-артом */
@@ -253,6 +261,7 @@
                 gap: 40px;
             }
             .game-section {
+                background-size: cover;
                 flex-direction: column-reverse;
                 text-align: center;
             }
@@ -286,31 +295,31 @@
             <div onclick="openComic()" class="comic-card active">
                 <img src="comics.png" alt="Комикс Часть 1 и 2">
             </div>
-            <div class="comic-card disabled" title="Скоро!">
+            <div class="comic-card disabled" title="Coming Soon!">
                 <img src="comics2.png" alt="Будущий комикс 2">
             </div>
-            <div class="comic-card disabled" title="Скоро!">
+            <div class="comic-card disabled" title="Coming Soon!">
                 <img src="comics3.png" alt="Будущий комикс 3">
             </div>
         </div>
 
-        <!-- 5. Нижний блок: Текст + кнопка Скачать слева, Скриншот screen.png справа -->
+        <!-- 5. Нижний блок: Английский текст в рамке button.png, Скриншот screen.png справа -->
         <div class="game-section">
             
             <!-- Левая часть с текстом -->
             <div class="game-info-col">
                 <h2>ANTIPOKA'S DELIRIUM (THE GAME)</h2>
-                <p>Эта старая недоделанная игра легла в основу вселенной моего комикса! Скачайте её прямо с сайта, чтобы лично увидеть, с чего зародилась вся эта история и приключения персонажей.</p>
+                <p>This old, unfinished game became the core foundation for my comic's universe! Download its archive directly from the site to see where this whole story and the characters' adventures first began.</p>
                 
                 <!-- Кнопка для прямого скачивания файла игры .exe с твоего гитхаба -->
                 <a href="ANTIPOKA'S DELIRIUM.exe" download class="download-btn">
-                    <img src="download.png" alt="Скачать напрямую">
+                    <img src="download.png" alt="Download">
                 </a>
             </div>
 
             <!-- Правая часть со скриншотом screen.png -->
             <div class="game-art-col">
-                <img src="screen.png" alt="Скриншот из игры">
+                <img src="screen.png" alt="Game Screenshot">
             </div>
 
         </div>
