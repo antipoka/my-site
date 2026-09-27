@@ -12,8 +12,6 @@
             background-position: center;
             background-attachment: fixed;
             background-color: #121212;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
@@ -130,14 +128,14 @@
         }
 
         .game-section h2 {
-            color: #ff0000; /* Ярко-красный заголовок */
+            color: #ff0000;
             margin: 0;
             font-size: 2em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         .game-section p {
-            color: #ff3333; /* Красный текст описания */
+            color: #ff3333;
             line-height: 1.6;
             font-size: 1.1em;
             margin: 0;
@@ -177,7 +175,7 @@
             height: auto;
         }
 
-        /* СТИЛИ ИНТЕРАКТИВНОЙ ЧИТАЛКИ */
+        /* СТИЛИ ИНТЕРАКТИВНОЙ ЧИТАЛКИ КОМИКСОВ */
         .comic-modal {
             display: none;
             position: fixed;
@@ -268,6 +266,9 @@
             .game-info-col {
                 align-items: center;
             }
+            .comic-page-img.zoomed {
+                transform: scale(2.0);
+            }
         }
     </style>
 </head>
@@ -292,36 +293,32 @@
 
         <!-- 4. Сетка из 3-х вертикальных боксов комиксов -->
         <div class="comics-grid">
-            <div onclick="openComic()" class="comic-card active">
-                <img src="comics.png" alt="Комикс Часть 1 и 2">
+            <!-- Бокс 1: Первый комикс (Antipoka's Delirium) -->
+            <div onclick="openComic(1)" class="comic-card active">
+                <img src="comics.png" alt="Antipoka's Delirium">
             </div>
-            <div class="comic-card disabled" title="Coming Soon!">
-                <img src="comics2.png" alt="Будущий комикс 2">
+            <!-- Бокс 2: Второй комикс (WHAT IF) — ТЕПЕРЬ АКТИВНЫЙ! -->
+            <div onclick="openComic(2)" class="comic-card active">
+                <img src="comics2.png" alt="WHAT IF">
             </div>
+            <!-- Бокс 3: Анонс третьего комикса -->
             <div class="comic-card disabled" title="Coming Soon!">
-                <img src="comics3.png" alt="Будущий комикс 3">
+                <img src="comics3.png" alt="Future Comic 3">
             </div>
         </div>
 
         <!-- 5. Нижний блок: Английский текст в рамке button.png, Скриншот screen.png справа -->
         <div class="game-section">
-            
-            <!-- Левая часть с текстом -->
             <div class="game-info-col">
-                <h2>ANTIPOKA'S DELIRIUM (THE GAME)</h2>
+                <h2>ANTIWORLD 3D: OVERTHROW / ANTIPOKA'S DELIRIUM (THE GAME)</h2>
                 <p>This old, unfinished game became the core foundation for my comic's universe! Download its archive directly from the site to see where this whole story and the characters' adventures first began.</p>
-                
-                <!-- Кнопка для прямого скачивания файла игры .exe с твоего гитхаба -->
                 <a href="ANTIPOKA'S DELIRIUM.exe" download class="download-btn">
                     <img src="download.png" alt="Download">
                 </a>
             </div>
-
-            <!-- Правая часть со скриншотом screen.png -->
             <div class="game-art-col">
                 <img src="screen.png" alt="Game Screenshot">
             </div>
-
         </div>
 
     </div>
@@ -330,35 +327,52 @@
     <div id="comicModal" class="comic-modal">
         <span class="comic-close-btn" onclick="closeComic()">&times;</span>
         <div class="comic-wrapper">
-            <img id="comicPage" src="antipokasdeliriumvol1.png" alt="Страница комикса" class="comic-page-img" onclick="toggleZoom()">
+            <img id="comicPage" src="" alt="Comic Page" class="comic-page-img" onclick="toggleZoom()">
         </div>
         <div class="comic-controls">
             <div class="comic-img-btn" onclick="prevPage()">
-                <img src="BACK.png" alt="Назад">
+                <img src="BACK.png" alt="Back">
             </div>
-            <span id="pageCounter" class="page-counter">Обложка Ч.1</span>
+            <span id="pageCounter" class="page-counter">Cover</span>
             <div class="comic-img-btn" onclick="nextPage()">
-                <img src="NEXT.png" alt="Вперед">
+                <img src="NEXT.png" alt="Next">
             </div>
         </div>
     </div>
 
+    <!-- СКРИПТ УПРАВЛЕНИЯ ДВУМЯ РАЗНЫМИ КОМИКСАМИ -->
     <script>
+        let currentComic = 1;
         let currentIndex = 0;
         
-        const comicPages = [
-            { src: "antipokasdeliriumvol1.png", label: "Обложка Ч.1" },
-            { src: "vol1page1.png", label: "Часть 1 — Стр. 1" },
-            { src: "vol1page2.png", label: "Часть 1 — Стр. 2" },
-            { src: "vol1page3.png", label: "Часть 1 — Стр. 3" },
-            { src: "vol1page4.png", label: "Часть 1 — Стр. 4" },
-            { src: "antipokasdeliriumvol1part2.png", label: "Обложка Ч.2" },
-            { src: "vol1part2page1.png", label: "Часть 2 — Стр. 1" },
-            { src: "vol1part2page2.png", label: "Часть 2 — Стр. 2" },
-            { src: "vol1part2page3.png", label: "Часть 2 — Стр. 3" }
+        // Массив страниц для Первого Комикса (Antipoka's Delirium)
+        const deliriumPages = [
+            { src: "antipokasdeliriumvol1.png", label: "Cover Part 1" },
+            { src: "vol1page1.png", label: "Part 1 — Page 1" },
+            { src: "vol1page2.png", label: "Part 1 — Page 2" },
+            { src: "vol1page3.png", label: "Part 1 — Page 3" },
+            { src: "vol1page4.png", label: "Part 1 — Page 4" },
+            { src: "antipokasdeliriumvol1part2.png", label: "Cover Part 2" },
+            { src: "vol1part2page1.png", label: "Part 2 — Page 1" },
+            { src: "vol1part2page2.png", label: "Part 2 — Page 2" },
+            { src: "vol1part2page3.png", label: "Part 2 — Page 3" }
         ];
 
-        function openComic() {
+        // Массив страниц для Второго Комикса (WHAT IF) — строго по твоему списку
+        const whatifPages = [
+            { src: "WHATIF.png", label: "WHAT IF — Cover" },
+            { src: "WHATIFspoiler.png", label: "WARNING — Spoiler!" },
+            { src: "WHATIFpage1.png", label: "Part 1 — Page 1" },
+            { src: "WHATIFpage2.png", label: "Part 1 — Page 2" },
+            { src: "WHATIFpage3.png", label: "Part 1 — Page 3" },
+            { src: "WHATIFpage4.png", label: "Part 1 — Page 4" },
+            { src: "WHATIFpart2page1.png", label: "Part 2 — Page 1" },
+            { src: "WHATIFpart2page2.png", label: "Part 2 — Page 2" },
+            { src: "WHATIFpart2page3.png", label: "Part 2 — Page 3" }
+        ];
+
+        function openComic(comicNumber) {
+            currentComic = comicNumber;
             currentIndex = 0;
             resetZoom();
             updateModal();
@@ -369,7 +383,8 @@
             document.getElementById("comicModal").style.display = "none";
         }
         function nextPage() {
-            if (currentIndex < comicPages.length - 1) {
+            const activePages = currentComic === 1 ? deliriumPages : whatifPages;
+            if (currentIndex < activePages.length - 1) {
                 currentIndex++;
                 resetZoom();
                 updateModal();
@@ -383,8 +398,9 @@
             }
         }
         function updateModal() {
-            document.getElementById("comicPage").src = comicPages[currentIndex].src;
-            document.getElementById("pageCounter").innerText = comicPages[currentIndex].label;
+            const activePages = currentComic === 1 ? deliriumPages : whatifPages;
+            document.getElementById("comicPage").src = activePages[currentIndex].src;
+            document.getElementById("pageCounter").innerText = activePages[currentIndex].label;
         }
         function toggleZoom() {
             document.getElementById("comicPage").classList.toggle("zoomed");
