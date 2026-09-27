@@ -12,6 +12,8 @@
             background-position: center;
             background-attachment: fixed;
             background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
@@ -67,35 +69,29 @@
             margin: 0 auto 40px auto;
         }
 
-        /* 4. Сетка из 3-х колонок для комиксов по твоей схеме */
+        /* 4. Сетка из 3-х колонок для комиксов */
         .comics-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             margin-top: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        /* Общие стили для карточек комиксов */
         .comic-card {
             display: block;
             transition: transform 0.2s, filter 0.2s;
             cursor: pointer;
         }
-        
-        /* Эффект наведения только на рабочий комикс */
         .comic-card.active:hover {
             transform: scale(1.06);
             filter: drop-shadow(0 0 15px rgba(204, 255, 0, 0.6));
         }
-
-        /* Стиль для нерабочих анонсов (будут слегка затемнены, показывая, что закрыты) */
         .comic-card.disabled {
             cursor: default;
-            opacity: 0.5; /* Затемнение на 50% */
-            filter: grayscale(30%); /* Легкий эффект черно-белого */
+            opacity: 0.5;
+            filter: grayscale(30%);
         }
-
         .comic-card img {
             display: block;
             width: 100%;
@@ -103,6 +99,74 @@
             height: auto;
             margin: 0 auto;
             border-radius: 6px;
+        }
+
+        /* 5. Нижний блок: Описание игры + Арт (в 2 колонки) */
+        .game-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(18, 18, 18, 0.85);
+            border-radius: 12px;
+            border: 1px solid #333;
+            text-align: left;
+        }
+
+        /* Левая колонка с текстом и кнопкой скачать */
+        .game-info-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .game-section h2 {
+            color: #ccff00;
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .game-section p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin: 0;
+        }
+
+        /* Правая колонка с картинкой-артом */
+        .game-art-col {
+            flex: 1;
+        }
+
+        .game-art-col img {
+            display: block;
+            width: 100%;
+            max-width: 440px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            margin: 0 auto;
+        }
+
+        /* Кнопка скачать картинкой download.png */
+        .download-btn {
+            display: inline-block;
+            transition: transform 0.2s, filter 0.2s;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .download-btn:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+        }
+        .download-btn img {
+            display: block;
+            max-width: 200px;
+            height: auto;
         }
 
         /* СТИЛИ ИНТЕРАКТИВНОЙ ЧИТАЛКИ */
@@ -182,25 +246,31 @@
             font-weight: bold;
         }
 
-        /* Адаптивность для мобильных телефонов (блоки встанут в один ряд) */
+        /* Адаптивность для мобилок */
         @media (max-width: 768px) {
             .comics-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
+            .game-section {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .game-info-col {
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         
         <!-- 1. Соцсети на самом верху в ряд -->
         <div class="top-social-row">
-            <a href="https://t.me/+5tdyo3_NtHgzODMy" target="_blank" class="custom-btn">
+            <a href="https://t.me" target="_blank" class="custom-btn">
                 <img src="telegram.png" alt="Telegram">
             </a>
-            <a href="https://gamejolt.com/@Antipokasgames" target="_blank" rel="noreferrer" class="custom-btn">
+            <a href="https://gamejolt.com" target="_blank" rel="noreferrer" class="custom-btn">
                 <img src="gamejoltpng.png" alt="Gamejolt">
             </a>
         </div>
@@ -211,22 +281,36 @@
         <!-- 3. Ниже картинка Игры и Комиксы -->
         <img src="gamesandcomics.png" alt="Игры и Комиксы" class="games-comics-img">
 
-        <!-- 4. Сетка из 3-х вертикальных боксов комиксов по твоей схеме -->
+        <!-- 4. Сетка из 3-х вертикальных боксов комиксов -->
         <div class="comics-grid">
-            
-            <!-- Бокс 1: Рабочий комикс (открывает плеер) -->
             <div onclick="openComic()" class="comic-card active">
                 <img src="comics.png" alt="Комикс Часть 1 и 2">
             </div>
-
-            <!-- Бокс 2: Анонс будущей истории (закрытый) -->
             <div class="comic-card disabled" title="Скоро!">
                 <img src="comics2.png" alt="Будущий комикс 2">
             </div>
-
-            <!-- Бокс 3: Анонс будущей истории (закрытый) -->
             <div class="comic-card disabled" title="Скоро!">
                 <img src="comics3.png" alt="Будущий комикс 3">
+            </div>
+        </div>
+
+        <!-- 5. Нижний блок: Текст + кнопка Скачать слева, Скриншот screen.png справа -->
+        <div class="game-section">
+            
+            <!-- Левая часть с текстом -->
+            <div class="game-info-col">
+                <h2>ANTIPOKA'S DELIRIUM (THE GAME)</h2>
+                <p>Эта старая недоделанная игра легла в основу вселенной моего комикса! Скачайте её прямо с сайта, чтобы лично увидеть, с чего зародилась вся эта история и приключения персонажей.</p>
+                
+                <!-- Кнопка для прямого скачивания файла игры .exe с твоего гитхаба -->
+                <a href="ANTIPOKA'S DELIRIUM.exe" download class="download-btn">
+                    <img src="download.png" alt="Скачать напрямую">
+                </a>
+            </div>
+
+            <!-- Правая часть со скриншотом screen.png -->
+            <div class="game-art-col">
+                <img src="screen.png" alt="Скриншот из игры">
             </div>
 
         </div>
@@ -240,19 +324,16 @@
             <img id="comicPage" src="antipokasdeliriumvol1.png" alt="Страница комикса" class="comic-page-img" onclick="toggleZoom()">
         </div>
         <div class="comic-controls">
-            <!-- Стрелка НАЗАД (BACK.png) -->
             <div class="comic-img-btn" onclick="prevPage()">
                 <img src="BACK.png" alt="Назад">
             </div>
             <span id="pageCounter" class="page-counter">Обложка Ч.1</span>
-            <!-- Стрелка ВПЕРЕД (NEXT.png) -->
             <div class="comic-img-btn" onclick="nextPage()">
                 <img src="NEXT.png" alt="Вперед">
             </div>
         </div>
     </div>
 
-    <!-- СКРИПТ УПРАВЛЕНИЯ ЛИСТАЛКОЙ -->
     <script>
         let currentIndex = 0;
         
