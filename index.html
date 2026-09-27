@@ -19,7 +19,7 @@
         
         /* Главный контейнер */
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 30px 20px;
         }
@@ -64,25 +64,45 @@
             max-width: 550px;
             width: 100%;
             height: auto;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 40px auto;
         }
 
-        /* 4. Главная кнопка комикса */
-        .main-comic-btn {
-            display: inline-block;
-            margin: 10px auto 40px auto;
+        /* 4. Сетка из 3-х колонок для комиксов по твоей схеме */
+        .comics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        /* Общие стили для карточек комиксов */
+        .comic-card {
+            display: block;
             transition: transform 0.2s, filter 0.2s;
             cursor: pointer;
         }
-        .main-comic-btn:hover {
+        
+        /* Эффект наведения только на рабочий комикс */
+        .comic-card.active:hover {
             transform: scale(1.06);
-            filter: drop-shadow(0 0 20px rgba(204, 255, 0, 0.6));
+            filter: drop-shadow(0 0 15px rgba(204, 255, 0, 0.6));
         }
-        .main-comic-btn img {
+
+        /* Стиль для нерабочих анонсов (будут слегка затемнены, показывая, что закрыты) */
+        .comic-card.disabled {
+            cursor: default;
+            opacity: 0.5; /* Затемнение на 50% */
+            filter: grayscale(30%); /* Легкий эффект черно-белого */
+        }
+
+        .comic-card img {
             display: block;
-            max-width: 380px;
             width: 100%;
+            max-width: 280px;
             height: auto;
+            margin: 0 auto;
+            border-radius: 6px;
         }
 
         /* СТИЛИ ИНТЕРАКТИВНОЙ ЧИТАЛКИ */
@@ -161,6 +181,14 @@
             user-select: none;
             font-weight: bold;
         }
+
+        /* Адаптивность для мобильных телефонов (блоки встанут в один ряд) */
+        @media (max-width: 768px) {
+            .comics-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -183,9 +211,24 @@
         <!-- 3. Ниже картинка Игры и Комиксы -->
         <img src="gamesandcomics.png" alt="Игры и Комиксы" class="games-comics-img">
 
-        <!-- 4. Центральная кнопка комикса -->
-        <div onclick="openComic()" class="main-comic-btn">
-            <img src="comics.png" alt="Читать Комикс">
+        <!-- 4. Сетка из 3-х вертикальных боксов комиксов по твоей схеме -->
+        <div class="comics-grid">
+            
+            <!-- Бокс 1: Рабочий комикс (открывает плеер) -->
+            <div onclick="openComic()" class="comic-card active">
+                <img src="comics.png" alt="Комикс Часть 1 и 2">
+            </div>
+
+            <!-- Бокс 2: Анонс будущей истории (закрытый) -->
+            <div class="comic-card disabled" title="Скоро!">
+                <img src="comics2.png" alt="Будущий комикс 2">
+            </div>
+
+            <!-- Бокс 3: Анонс будущей истории (закрытый) -->
+            <div class="comic-card disabled" title="Скоро!">
+                <img src="comics3.png" alt="Будущий комикс 3">
+            </div>
+
         </div>
 
     </div>
@@ -213,7 +256,6 @@
     <script>
         let currentIndex = 0;
         
-        // Массив всех твоих страниц по порядку
         const comicPages = [
             { src: "antipokasdeliriumvol1.png", label: "Обложка Ч.1" },
             { src: "vol1page1.png", label: "Часть 1 — Стр. 1" },
