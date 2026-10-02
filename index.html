@@ -24,7 +24,7 @@
             padding: 30px 20px;
         }
 
-        /* Upper social media row */
+        /* Верхний ряд соцсетей */
         .top-social-row {
             display: flex;
             justify-content: center;
@@ -84,11 +84,6 @@
         .comic-card.active:hover {
             transform: scale(1.06);
             filter: drop-shadow(0 0 15px rgba(204, 255, 0, 0.6));
-        }
-        .comic-card.disabled {
-            cursor: default;
-            opacity: 0.5;
-            filter: grayscale(30%);
         }
         .comic-card img {
             display: block;
@@ -293,21 +288,21 @@
 
         <!-- 4. Сетка из 3-х вертикальных боксов комиксов -->
         <div class="comics-grid">
-            <!-- Бокс 1: Первый комикс (Antipoka's Delirium) -->
+            <!-- Бокс 1: Первый комикс -->
             <div onclick="openComic(1)" class="comic-card active">
                 <img src="comics.png" alt="Antipoka's Delirium">
             </div>
-            <!-- Бокс 2: Второй комикс (WHAT IF) — ТЕПЕРЬ АКТИВНЫЙ! -->
+            <!-- Бокс 2: Второй комикс -->
             <div onclick="openComic(2)" class="comic-card active">
                 <img src="comics2.png" alt="WHAT IF">
             </div>
-            <!-- Бокс 3: Анонс третьего комикса -->
-            <div class="comic-card disabled" title="Coming Soon!">
-                <img src="comics3.png" alt="Future Comic 3">
+            <!-- Бокс 3: Третий комикс -->
+            <div onclick="openComic(3)" class="comic-card active">
+                <img src="page1.png" alt="Comic 3">
             </div>
         </div>
 
-        <!-- 5. Нижний блок: Английский текст в рамке button.png, Скриншот screen.png справа -->
+        <!-- 5. Нижний блок: Описание игры + Скриншот screen.png справа -->
         <div class="game-section">
             <div class="game-info-col">
                 <h2>ANTIWORLD 3D: OVERTHROW / ANTIPOKA'S DELIRIUM (THE GAME)</h2>
@@ -339,13 +334,12 @@
             </div>
         </div>
     </div>
-
-    <!-- СКРИПТ УПРАВЛЕНИЯ ДВУМЯ РАЗНЫМИ КОМИКСАМИ -->
+    <!-- СКРИПТ УПРАВЛЕНИЯ ТРЕМЯ РАЗНЫМИ КОМИКСАМИ -->
     <script>
         let currentComic = 1;
         let currentIndex = 0;
         
-        // Массив страниц для Первого Комикса (Antipoka's Delirium)
+        // Массив страниц для Первого Комикса
         const deliriumPages = [
             { src: "antipokasdeliriumvol1.png", label: "Cover Part 1" },
             { src: "vol1page1.png", label: "Part 1 — Page 1" },
@@ -358,7 +352,7 @@
             { src: "vol1part2page3.png", label: "Part 2 — Page 3" }
         ];
 
-        // Массив страниц для Второго Комикса (WHAT IF) — строго по твоему списку
+        // Массив страниц для Второго Комикса (WHAT IF)
         const whatifPages = [
             { src: "WHATIF.png", label: "WHAT IF — Cover" },
             { src: "WHATIFspoiler.png", label: "WARNING — Spoiler!" },
@@ -370,6 +364,15 @@
             { src: "WHATIFpart2page2.png", label: "Part 2 — Page 2" },
             { src: "WHATIFpart2page3.png", label: "Part 2 — Page 3" }
         ];
+
+        // Автоматическая генерация массива для Третьего Комикса (от page1.png до page27.png)
+        const thirdComicPages = [];
+        for (let i = 1; i <= 27; i++) {
+            thirdComicPages.push({
+                src: "page" + i + ".png",
+                label: i === 1 ? "Comic 3 — Cover" : "Comic 3 — Page " + i + " / 27"
+            });
+        }
 
         function openComic(comicNumber) {
             currentComic = comicNumber;
@@ -383,7 +386,7 @@
             document.getElementById("comicModal").style.display = "none";
         }
         function nextPage() {
-            const activePages = currentComic === 1 ? deliriumPages : whatifPages;
+            const activePages = getActivePages();
             if (currentIndex < activePages.length - 1) {
                 currentIndex++;
                 resetZoom();
@@ -398,9 +401,14 @@
             }
         }
         function updateModal() {
-            const activePages = currentComic === 1 ? deliriumPages : whatifPages;
+            const activePages = getActivePages();
             document.getElementById("comicPage").src = activePages[currentIndex].src;
             document.getElementById("pageCounter").innerText = activePages[currentIndex].label;
+        }
+        function getActivePages() {
+            if (currentComic === 1) return deliriumPages;
+            if (currentComic === 2) return whatifPages;
+            return thirdComicPages;
         }
         function toggleZoom() {
             document.getElementById("comicPage").classList.toggle("zoomed");
